@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Applying the Growth Spectrum Model<sup>TM</sup></title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { border-collapse: collapse; width: 50%; margin-bottom: 20px; }
+        th, td { border: 1px solid black; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        select { margin: 10px; }
+        #definition { margin-top: 20px; }
+        .small { font-size: small; }
+    </style>
+</head>
+<body>
+    <h1>Applying the Growth Spectrum Model<sup>TM</sup></h1>
+    <p>The Growth Spectrum Model<sup>TM</sup> is a proficiency model to assess skills. Each of the five levels is defined not only by the degree of capability, but also by the concept of Growth Mindset in action.</p>
+    
+    <table>
+        <tr>
+            <th>Taxonomy Level 2</th>
+            <th>Taxonomy Level 3</th>
+            <th>Taxonomy Level 4</th>
+            <th>Taxonomy Level 5</th>
+        </tr>
+        <tr>
+            <td>{{ data_tab1[0]['Taxonomy Level 2'] }}</td>
+            <td>{{ data_tab1[0]['Taxonomy Level 3'] }}</td>
+            <td>{{ data_tab1[0]['Taxonomy Level 4'] }}</td>
+            <td>{{ data_tab1[0]['Taxonomy Level 5'] }}</td>
+        </tr>
+        <!-- Repeat the above row for other rows in Tab 1 data -->
+    </table>
+    
+    <p class="small">TM - Trademark of Gina Jeneroux | The Future is Now Consulting Inc.</p>
+    
+    <br><br><br><br><br>
+    
+    <p>The Growth Spectrum Model<sup>TM</sup> can be applied in action, against a range of skills.</p>
+    <p>Use the following dropdowns to navigate through the hierarchy of skills in the <a href='https://www.weforum.org/publications/building-a-common-language-for-skills-at-work-a-global-taxonomy/'><b>World Economic Forum's Skills Taxonomy</b></a>, and obtain definitions of the five levels of proficiency for each skill.</p>
+    
+    <!-- Dropdowns for Column A, B, C, and D of Tab 2 -->
+    <label for="column-a">Column A:</label>
+    <select id="column-a" onchange="fetchData()">
+        <option value="">--Please choose an option--</option>
+        <!-- Populate options dynamically using JavaScript -->
+    </select>
+
+    <!-- Repeat above for Column B, C, and D -->
+
+    <div id="definition"></div>
+
+    <script>
+        window.onload = function() {
+            // Fetch proficiency data and populate dropdowns
+            fetch('/proficiency')
+            .then(response => response.json())
+            .then(data => {
+                populateDropdown('column-a', data, 'Taxonomy Level 2');
+                // Populate other dropdowns similarly
+            });
+        };
+
+        function populateDropdown(id, data, column) {
+            const select = document.getElementById(id);
+            data.forEach(item => {
+                let option = document.createElement('option');
+                option.value = item[column];
+                option.text = item[column];
+                select.appendChild(option);
+            });
+        }
+
+        function fetchData() {
+            // Code to fetch proficiency definitions based on dropdown selections
+            // and display them in the 'definition' div
+        }
+    </script>
+</body>
+</html>
